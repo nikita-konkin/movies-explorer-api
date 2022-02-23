@@ -25,6 +25,7 @@ const {
 } = require('./controllers/users');
 
 const auth = require('./middlewares/auth');
+const limiter = require('./middlewares/apilimiter')
 
 const {
   PORT,
@@ -34,6 +35,7 @@ const {
 const app = express();
 
 app.use(helmet());
+app.use(limiter);
 
 app.use(cookieParser());
 app.use(bodyParser.json());
