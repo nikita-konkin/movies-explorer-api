@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const helmet = require("helmet");
+const helmet = require('helmet');
 
 const {
   celebrate,
@@ -25,7 +25,7 @@ const {
 } = require('./controllers/users');
 
 const auth = require('./middlewares/auth');
-const limiter = require('./middlewares/apilimiter')
+const limiter = require('./middlewares/apilimiter');
 
 const {
   PORT,
