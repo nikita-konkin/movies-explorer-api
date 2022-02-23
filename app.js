@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const helmet = require("helmet");
 
 const {
   celebrate,
@@ -30,6 +31,8 @@ const {
 } = process.env;
 
 const app = express();
+
+app.use(helmet());
 
 app.use(cookieParser());
 app.use(bodyParser.json());
