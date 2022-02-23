@@ -37,9 +37,7 @@ module.exports.loginUser = (req, res, next) => {
         maxAge: 7 * 24 * 60 * 60,
         httpOnly: true,
       })
-        .end();
-
-      return res.send('cocked');
+        .end('{loggedin}');
     })
     .catch((err) => {
       const e = new Error(err.message);
@@ -52,8 +50,6 @@ module.exports.loginUser = (req, res, next) => {
 module.exports.createUser = (req, res, next) => {
   const {
     name,
-    about,
-    avatar,
     email,
     password,
   } = req.body;
@@ -61,16 +57,12 @@ module.exports.createUser = (req, res, next) => {
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name,
-      about,
-      avatar,
       email,
       password: hash,
     }))
     .then(() => res.send({
       data: {
         name,
-        about,
-        avatar,
         email,
       },
     }))
@@ -119,12 +111,11 @@ module.exports.getUserById = (req, res, next) => {
 module.exports.updateUserProfile = (req, res, next) => {
   const {
     name,
-    about,
-    avatar,
+    email,
   } = req.body;
   User.findByIdAndUpdate(req.user._id, {
     name,
-    about,
+    email,
   }, {
     new: true,
     runValidators: true,
@@ -145,4 +136,15 @@ module.exports.updateUserProfile = (req, res, next) => {
         next(e);
       }
     });
+};
+
+module.exports.logoutUser = (req, res, next) => {
+  try {
+    res.clearCookie('jwt');
+    res.end('{logout}');
+  } catch (err) {
+    const e = new Error('401 - Необходима авторизация.');
+    e.statusCode = 401;
+    next(e);
+  }
 };
