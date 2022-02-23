@@ -27,7 +27,8 @@ const {
 const auth = require('./middlewares/auth');
 
 const {
-  PORT = 3000,
+  PORT,
+  MONDOADDRESS,
 } = process.env;
 
 const app = express();
@@ -40,7 +41,7 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(`mongodb://${MONDOADDRESS}`, {
   useNewUrlParser: true,
 }, (err, next) => {
   if (err) {
