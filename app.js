@@ -28,8 +28,8 @@ const auth = require('./middlewares/auth');
 const limiter = require('./middlewares/apilimiter');
 
 const {
-  PORT,
-  MONDOADDRESS,
+  PORT = 3000,
+  MONDOADDRESS = 'localhost:27017/bitfilmsdb',
 } = process.env;
 
 const app = express();
