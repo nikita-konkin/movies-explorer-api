@@ -77,6 +77,7 @@ module.exports.delMovieById = (req, res, next) => {
             res.send({
               data,
             });
+            return data;
           });
       } else {
         const e = new Error('403 — Запрещено.');

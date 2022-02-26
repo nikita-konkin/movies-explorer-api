@@ -10,10 +10,10 @@ const {
   updateUserProfile,
 } = require('../controllers/users');
 
-router.get('/me', getUserById);
-router.patch('/me', celebrate({
+router.get('/users/me', getUserById);
+router.patch('/users/me', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(15),
+    name: Joi.string().min(2).max(15).required(),
     email: Joi.string().email().required(),
   }),
 }), updateUserProfile);

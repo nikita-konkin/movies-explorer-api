@@ -6,10 +6,6 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 
 const {
-  celebrate,
-  Joi,
-} = require('celebrate');
-const {
   errors,
 } = require('celebrate');
 
@@ -18,23 +14,16 @@ const {
   errorLogger,
 } = require('./middlewares/logger');
 
-const {
-  loginUser,
-  createUser,
-  logoutUser,
-} = require('./controllers/users');
-
 const auth = require('./middlewares/auth');
 const limiter = require('./middlewares/apilimiter');
 
-const {
-  PORT = 3000,
-  MONDOADDRESS = 'localhost:27017/bitfilmsdb',
-} = process.env;
+const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 3000;
+const mdbAddr = process.env.NODE_ENV === 'production' ? process.env.MONDOADDRESS : 'localhost:27017/bitfilmsdb';
 
 const app = express();
 
 app.use(helmet());
+app.use(reqwestLogger);
 app.use(limiter);
 
 app.use(cookieParser());
@@ -43,41 +32,20 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
-mongoose.connect(`mongodb://${MONDOADDRESS}`, {
+mongoose.connect(`mongodb://${mdbAddr}`, {
   useNewUrlParser: true,
-}, (err, next) => {
-  if (err) {
-    const e = new Error(err.message);
-    e.statusCode = err.code;
-    next(e);
-  } else {
-    console.warn('Connected to MongoDB');
-  }
+}).then(() => {
+  console.error('MongoDB connected!!');
+}).catch((err) => {
+  console.error('Failed to connect to MongoDB', err);
 });
 
-app.use(reqwestLogger);
-
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-  }),
-}), loginUser);
-
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(3).max(30).required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
-  }),
-}), createUser);
-
-app.post('/signout', logoutUser);
+app.use(require('./routes/signs'));
 
 app.use(auth);
 
-app.use('/users', require('./routes/users'));
-app.use('/movies', require('./routes/movies'));
+app.use(require('./routes/users'));
+app.use(require('./routes/movies'));
 
 app.use((req, res, next) => {
   const e = new Error('Страница не найдена');
@@ -98,6 +66,6 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(PORT, () => {
-  console.error(`App listening on port ${PORT}`);
+app.listen(port, () => {
+  console.error(`App listening on port ${port}`);
 });
