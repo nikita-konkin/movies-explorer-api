@@ -18,7 +18,7 @@ const auth = require('./middlewares/auth');
 const limiter = require('./middlewares/apilimiter');
 
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 3000;
-const mdbAddr = process.env.NODE_ENV === 'production' ? process.env.MONDOADDRESS : 'localhost:27017/bitfilmsdb';
+const mdbAddr = process.env.NODE_ENV === 'production' ? process.env.MONDOADDRESS : 'localhost:27017/moviesdb';
 
 const app = express();
 
