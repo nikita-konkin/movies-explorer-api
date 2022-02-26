@@ -44,11 +44,12 @@ module.exports.updateUserProfile = (req, res, next) => {
       });
     })
     .catch((err) => {
+      console.log(err.keyPattern);
       if (err.name === 'ValidationError') {
         const e = new Error('400 - Некорректные данные');
         e.statusCode = 400;
         next(e);
-      } else if (err.codeName === 'DuplicateKey') {
+      } else if (err.code === 11000) {
         const e = new Error('409 — Данный пользователь уже существует');
         e.statusCode = 409;
         next(e);
