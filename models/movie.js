@@ -6,13 +6,13 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 60,
   },
   director: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 60,
   },
   duration: {
     type: Number,
@@ -26,7 +26,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 120,
+    maxlength: 2000,
   },
   image: {
     type: String,
@@ -50,10 +50,11 @@ const movieSchema = new mongoose.Schema({
     },
   },
   owner: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 30,
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+      default: [],
+    }],
   },
   movieId: {
     type: Number,
@@ -63,13 +64,13 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 60,
   },
   nameEN: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 60,
   },
 });
 
