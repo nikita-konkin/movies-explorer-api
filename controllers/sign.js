@@ -87,8 +87,8 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.logoutUser = (req, res, next) => {
   try {
-    res.clearCookie('jwt');
-    res.end('{logout}');
+    res.clearCookie('jwt')
+    .res.end('{logout}');
   } catch (err) {
     const e = new Error('401 - Необходима авторизация.');
     e.statusCode = 401;

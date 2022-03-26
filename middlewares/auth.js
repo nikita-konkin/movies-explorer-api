@@ -7,7 +7,7 @@ const {
 
 module.exports = (req, res, next) => {
   const authorization = req.cookies.jwt;
-  console.error(authorization)
+
   if (!authorization) {
     const e = new Error('401 - Необходима авторизация.');
     e.statusCode = 401;
