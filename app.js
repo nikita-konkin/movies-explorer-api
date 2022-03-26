@@ -21,8 +21,8 @@ const allowedCors = [
   'https://praktikum.tk',
   'http://praktikum.tk',
   'http://localhost:3001',
-  'https://mesto.niki-konkin.nomoredomains.work',
   'https://api.movie.mesto.konkin.nomoredomains.work',
+  'https://movie.movie.konkin.nomoredomains.xyz/',
 ];
 
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 3000;
