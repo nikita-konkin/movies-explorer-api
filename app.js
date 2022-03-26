@@ -20,7 +20,7 @@ const limiter = require('./middlewares/apilimiter');
 const allowedCors = [
   'https://praktikum.tk',
   'http://praktikum.tk',
-  'http://localhost:3001',
+  'http://localhost:3000',
   'https://api.movie.mesto.konkin.nomoredomains.work',
   'https://movie.movie.konkin.nomoredomains.xyz/',
 ];
