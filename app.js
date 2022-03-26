@@ -22,6 +22,7 @@ const allowedCors = [
   'http://praktikum.tk',
   'http://localhost:3001',
   'https://mesto.niki-konkin.nomoredomains.work',
+  'https://api.movie.mesto.konkin.nomoredomains.work',
 ];
 
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 3000;
@@ -94,9 +95,7 @@ app.use(errors());
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = statusCode === 500 ? 'Server error' : err.message;
-  res.status(statusCode).send({
-    message,
-  });
+  res.status(statusCode).send(message);
 
   next();
 });
