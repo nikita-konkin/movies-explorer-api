@@ -21,6 +21,7 @@ const allowedCors = [
   'https://praktikum.tk',
   'http://praktikum.tk',
   'http://localhost:3000',
+  'http://localhost:3001',
   'https://api.movie.mesto.konkin.nomoredomains.work',
   'https://movie.movie.konkin.nomoredomains.xyz',
 ];
@@ -95,7 +96,9 @@ app.use(errors());
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = statusCode === 500 ? 'Server error' : err.message;
-  res.status(statusCode).send(message);
+   res.status(statusCode).send({
+    message,
+  });
 
   next();
 });
