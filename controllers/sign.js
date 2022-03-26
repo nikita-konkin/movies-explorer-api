@@ -34,7 +34,7 @@ module.exports.loginUser = (req, res, next) => {
         _id: req.user._id,
       }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
       res.cookie('jwt', token, {
-        maxAge: 60 * 60 * 1000,
+        maxAge: 60 * 60 * 60 * 1000,
         httpOnly: true,
       })
         .end('{}');
