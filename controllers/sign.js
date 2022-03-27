@@ -35,11 +35,11 @@ module.exports.loginUser = (req, res, next) => {
       }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
       res.cookie('jwt', token, {
         maxAge: 60 * 60 * 60 * 1000,
-        httpOnly: false,
+        httpOnly: true,
       })
         .end('{}');
 
-      return '';
+      // return '';
     })
     .catch((err) => {
       const e = new Error(err.message);
