@@ -33,7 +33,7 @@ const app = express();
 
 app.use(helmet());
 app.use(reqwestLogger);
-// app.use(limiter);
+app.use(limiter);
 
 app.use((req, res, next) => {
   const {
